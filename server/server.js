@@ -14,6 +14,24 @@
  	socket.on('disconnect',()=>{
  		console.log('User disconnected');
  	})
+
+ 	socket.on('createMessage',(data)=>{
+ 	   console.log('New Email',data);
+    })
+
+    socket.emit('newMessage',{
+    	from:'Prethive',
+        text:'Welcome to app',
+        createdAt:new Date().getTime()
+    })
+
+    socket.broadcast.emit('newMessage',{
+    	from:'Admin',
+        text:'Prethive joined this app',
+        createdAt:new Date().getTime()
+    })
+
+
  })
 
  app.use(express.static(templatePath));
