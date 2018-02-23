@@ -14,8 +14,7 @@
  	    $('#msgs').append(li);
  })
  
-$('#msgForm').on('submit',function(e){
-  e.preventDefault();
+function submitFunc(){
    socket.emit('createMessage',{
  	  from:'Prethive',
  	  text:$('[name=message]').val()
@@ -24,4 +23,4 @@ $('#msgForm').on('submit',function(e){
  	   $('[name=message]').val("");
 
    })
-})
+}

@@ -6,13 +6,13 @@
 <body>
   <p>Chat App Creation</p>
   <br> 
-  <form id="msgForm">
+  <form id="msgForm" onsubmit="submitFunc(); return false">
   	 <input type="text" name="message">
   	 <input type="submit" value="Submit">
   </form>
   <h3 id="msg"></h3>
   <ol id="msgs"></ol>
-  <script src="/socket.io/socket.io.js"></script>
+  <script src="https://cryptic-scrubland-69119.herokuapp.com/socket.io/socket.io.js"></script>
   <script src="/js/lib/jquery-3.3.1.min.js"></script>
   <script src="/js/index.js"></script>
 </body>
