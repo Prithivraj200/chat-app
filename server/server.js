@@ -2,6 +2,9 @@
  const express=require('express');
  const http=require('http');
  const socketIO=require('socket.io');
+ const {generateMsg}=require(__dirname+'/utils/message');
+
+ //console.log(generateMsg('me','age'));
 
  const templatePath=path.join(__dirname,'../client');
  var port=process.env.PORT || 3000;
@@ -19,18 +22,9 @@
  	   console.log('New Email',data);
     })
 
-    socket.emit('newMessage',{
-    	from:'Prethive',
-        text:'Welcome to app',
-        createdAt:new Date().getTime()
-    })
+    socket.emit('newMessage',generateMsg('Admin','Welcome to chat app'))
 
-    socket.broadcast.emit('newMessage',{
-    	from:'Admin',
-        text:'Prethive joined this app',
-        createdAt:new Date().getTime()
-    })
-
+    socket.broadcast.emit('newMessage',generateMsg('Admin','New user joined chat app'))
 
  })
 
