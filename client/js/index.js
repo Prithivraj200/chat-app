@@ -9,5 +9,19 @@
  })
 
  socket.on('newMessage',function(data){
- 	console.log('New Message',data);
+ 	var li=$('<li class="input-msg"></li>');
+ 	    li.text(`${data.from} : ${data.text}`);
+ 	    $('#msgs').append(li);
  })
+ 
+$('#msgForm').on('submit',function(e){
+  e.preventDefault();
+   socket.emit('createMessage',{
+ 	  from:'Prethive',
+ 	  text:$('[name=message]').val()
+    },function(msg){
+ 	   $('#msg').text(msg);
+ 	   $('[name=message]').val("");
+
+   })
+})

@@ -18,15 +18,17 @@
  		console.log('User disconnected');
  	})
 
- 	socket.on('createMessage',(data)=>{
- 	   console.log('New Email',data);
+ 	socket.on('createMessage',(data,callback)=>{
+ 	   console.log('Create Message',data);
+ 	   socket.broadcast.emit('newMessage',generateMsg(data.from,data.text));
+ 	   callback('Message sent !');
     })
 
-    socket.emit('newMessage',generateMsg('Admin','Welcome to chat app'))
+    //socket.emit('newMessage',generateMsg('Admin','Welcome to chat app'))
 
-    socket.broadcast.emit('newMessage',generateMsg('Admin','New user joined chat app'))
+    //socket.broadcast.emit('newMessage',generateMsg('Admin','New user joined chat app'))
 
- })
+ }) 
 
  app.use(express.static(templatePath));
 
