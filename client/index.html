@@ -2,17 +2,27 @@
 <html>
 <head>
 	<title>Chat App</title>
+	<link rel="stylesheet" type="text/css" href="/css/style.css">
 </head>
-<body>
-  <p>Chat App Creation</p>
-  <br> 
-  <form id="msgForm" onsubmit="submitFunc(); return false">
-  	 <input type="text" name="message">
-  	 <input type="submit" value="Submit">
-  </form>
-  <h3 id="msg"></h3>
-  <ol id="msgs"></ol>
-  <script src="https://cryptic-scrubland-69119.herokuapp.com/socket.io/socket.io.js"></script>
+<body class="chat">
+  <div class="chat__sidebar">
+  	<h3>People</h3>
+  	<div id="users"></div>
+  </div>
+
+  <div class="chat__main">
+  	 <ol id="msgs" class="chat__messages"></ol>
+
+  	 <div class="chat__footer">  	 	
+        <form id="msgForm" onsubmit="submitFunc(); return false">
+  	       <input type="text" name="message" autofocus autocomplete="off">
+  	       <button type="submit">Send</button>
+        </form>
+        <button id="location" onclick="geoLocation()">Send Location</button>
+  	 </div>
+  </div>
+  <br>   
+  <script src="/socket.io/socket.io.js"></script>
   <script src="/js/lib/jquery-3.3.1.min.js"></script>
   <script src="/js/index.js"></script>
 </body>

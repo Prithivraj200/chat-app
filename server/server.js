@@ -2,7 +2,7 @@
  const express=require('express');
  const http=require('http');
  const socketIO=require('socket.io');
- const {generateMsg}=require(__dirname+'/utils/message');
+ const {generateMsg,generateLocation}=require(__dirname+'/utils/message');
 
  //console.log(generateMsg('me','age'));
 
@@ -19,9 +19,13 @@
  	})
 
  	socket.on('createMessage',(data,callback)=>{
- 	   console.log('Create Message',data);
  	   socket.broadcast.emit('newMessage',generateMsg(data.from,data.text));
  	   callback('Message sent !');
+    })
+
+    socket.on('createLocation',(location,callback)=>{
+ 	   socket.broadcast.emit('locMessage',generateLocation(location));
+ 	   callback('Location sent !');
     })
 
     //socket.emit('newMessage',generateMsg('Admin','Welcome to chat app'))
