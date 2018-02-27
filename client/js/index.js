@@ -9,17 +9,22 @@
  })
 
  socket.on('newMessage',function(data){
- 	var li=$('<li></li>');
- 	    li.text(`${data.from} ${data.createdAt}: ${data.text}`);
+ 	var template=$('#msg-template').html();
+ 	var li=Mustache.render(template,{
+ 		from:data.from,
+ 		time:data.createdAt,
+ 		msg:data.text
+ 	})
  	    $('#msgs').append(li);
  })
 
  socket.on('locMessage',function(data){
- 	var li=$('<li></li>');
- 	var a=$('<a target="_blank">My Current Location<a>');
- 	    li.text(`${data.from} ${data.createdAt}`);
- 	    a.attr('href',data.url);
- 	    li.append(a);
+ 	var template=$('#geo-msg-template').html();
+ 	var li=Mustache.render(template,{
+ 		from:data.from,
+ 		time:data.createdAt,
+ 		url:data.url
+ 	})
  	    $('#msgs').append(li);
  })
  

@@ -12,7 +12,7 @@ var generateLocation=(location)=>{
 	return {
 		from:location.from,
 		url:`https://www.google.com/maps?q=${location.coords.latitude},${location.coords.longitude}`,
-		createdAt:moment().valueOf().format('h:mm a')
+		createdAt:moment().format('h:mm a')
 	}
 }
 
