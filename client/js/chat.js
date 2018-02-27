@@ -1,5 +1,19 @@
  var socket=io();
 
+ function scroll(){
+ 	var msgs=$('#msgs');
+ 	var newMsg=msgs.children('li:last-child');
+ 	var scrollH=msgs.prop('scrollHeight');
+ 	var clientH=msgs.prop('clientHeight');
+ 	var scrollTop=msgs.prop('scrollTop');
+ 	var newMsgH=newMsg.innerHeight();
+ 	var lastMsgH=newMsg.prev().innerHeight();
+
+ 	if(clientH + scrollTop + newMsgH + lastMsgH >= scrollH)
+ 		msgs.scrollTop(scrollH);
+ 	
+ }
+
  socket.on('connect',function(){
    console.log('Server connected');
  })
@@ -16,6 +30,7 @@
  		msg:data.text
  	})
  	    $('#msgs').append(li);
+ 	    scroll();
  })
 
  socket.on('locMessage',function(data){
@@ -26,6 +41,7 @@
  		url:data.url
  	})
  	    $('#msgs').append(li);
+ 	    scroll();
  })
  
 function submitFunc(){
