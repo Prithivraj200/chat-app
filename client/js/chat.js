@@ -15,7 +15,16 @@
  }
 
  socket.on('connect',function(){
-   console.log('Server connected');
+   var params=$.deparam(window.location.search);
+   socket.emit('join',params,function(err){
+   	 if(err){
+   	 	alert(err);
+   	 	window.location.href='/';
+   	 }
+   	 else{
+   	 	console.log("Logged in!")
+   	 }
+   })
  })
 
  socket.on('disconnect',function(){
@@ -43,10 +52,19 @@
  	    $('#msgs').append(li);
  	    scroll();
  })
+
+ socket.on('updateUserList',function(users){
+ 	 var ol=$('<ol></ol>');
+ 	 users.forEach(function(u){
+ 	 	var li=$('<li></li>').text(u);
+        ol.append(li);
+ 	 })
+
+ 	 $('#users').html(ol);
+ })
  
 function submitFunc(){
    socket.emit('createMessage',{
- 	  from:'Prethive',
  	  text:$('[name=message]').val()
     },function(msg){
  	   $('[name=message]').val("");
@@ -62,12 +80,12 @@ function geoLocation(){
 	navigator.geolocation.getCurrentPosition(function(position){
 		locButton.removeAttr('disabled').text('Send Location');		
         socket.emit('createLocation',{
-        	from:'Prethive',
         	coords:{latitude:position.coords.latitude,longitude:position.coords.longitude}
-        },function(){
-
+        },function(suc){
+           console.log(suc)
         })
 	},function(err){
+		console.log(err);
 		locButton.removeAttr('disabled').text('Send Location');
 		alert("Unable to fetch Location! ");
 	})
